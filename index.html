@@ -11,9 +11,44 @@
 </head>
 <body style="background-color: #0f0 !important;color: #fff !important;">
     <div class="text-center p-4">
-        <h1>Texto traducido</h1>
+        <h1 id="tt"">Texto traducido</h1>
     </div>
 
 
 </body>
+
+<script>
+    var escuchar;
+    var tt = document.getElementById('tt');
+    const trans = e => {
+        fetch(`https://script.google.com/macros/s/AKfycbzBGnWEgmJSwixJ6sf55PyNA5vc67TL0D_BgNLw8xzDu0-pZ2WI3T962zKTX7vNVkQv/exec?text=${e}&source=es&target=en`)
+            .then(resp => resp.text())
+            .then(traduccion => {
+                tt.innerHTML = traduccion;
+            })
+            .catch(err => console.error(err));            
+    }
+
+    
+    if ('webkitSpeechRecognition' in window) {
+        escuchar = new webkitSpeechRecognition();
+        escuchar.lang = 'es-ES';
+        escuchar.onresult = function(event) {
+            const transcripcion = event.results[event.results.length - 1][0].transcript;
+            console.log('Transcripción:', transcripcion);
+            trans(transcripcion);
+        };
+        escuchar.onerror = function(event) {
+            console.error('Error de reconocimiento de voz:', event.error);
+        };
+        escuchar.start();
+        escuchar.onend = function() {
+            escuchar.start();
+        };
+        } else {
+            console.error('Tu navegador no soporta la API Web Speech');
+        }
+
+
+</script>
 </html>
