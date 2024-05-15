@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TT ES-EN</title>
-
+    
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     
 </head>
-<body style="background-color: #0f0 !important;color: #fff !important;">
+<body style="background-color: #0f0; color: #fff;">
     <div class="text-center p-4">
         <h1 id="tt"">Texto traducido</h1>
     </div>
@@ -18,7 +20,6 @@
 </body>
 
 <script>
-    var escuchar;
     var tt = document.getElementById('tt');
     const trans = e => {
         fetch(`https://script.google.com/macros/s/AKfycbzBGnWEgmJSwixJ6sf55PyNA5vc67TL0D_BgNLw8xzDu0-pZ2WI3T962zKTX7vNVkQv/exec?text=${e}&source=es&target=en`)
@@ -26,12 +27,12 @@
             .then(traduccion => {
                 tt.innerHTML = traduccion;
             })
-            .catch(err => console.error(err));            
+            .catch(err => console.error(err));
     }
 
-    
+        
     if ('webkitSpeechRecognition' in window) {
-        escuchar = new webkitSpeechRecognition();
+        const escuchar = new webkitSpeechRecognition();
         escuchar.lang = 'es-ES';
         escuchar.onresult = function(event) {
             const transcripcion = event.results[event.results.length - 1][0].transcript;
@@ -45,9 +46,9 @@
         escuchar.onend = function() {
             escuchar.start();
         };
-        } else {
-            console.error('Tu navegador no soporta la API Web Speech');
-        }
+    } else {
+        console.error('Tu navegador no soporta la API Web Speech');
+    }
 
 
 </script>
