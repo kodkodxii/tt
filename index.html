@@ -8,27 +8,22 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
 </head>
 <body style="background-color: #0f0; color: #fff;">
-    <small>
-        <i id="ii" class="fa fa-circle m-1 fixed-top" style="opacity: .25 !important;"></i>
-    </small>
-
-
+    
+    <i id="ii" class="fa fa-circle m-1" ></i>
+    
     <div class="text-center p-4">
-        <h1 id="tt">hablame</h1>
+        <h1 id="tt">hablame... </h1>
     </div>
-
 
 </body>
 
 <script>
     var tt = document.getElementById('tt');
-    var ii = document.getElementById('ii');
-
-    
+    var ii = document.getElementById('ii');    
 
     const err = (e,y) => {
         ii.classList.remove('text-success','text-warning');
@@ -36,6 +31,7 @@
         color = {1: 'text-danger',2: 'text-warning',3: 'text-success'}
         ii.classList.add(color[y]);
     }
+
     const trans = e => {
         fetch(`https://script.google.com/macros/s/AKfycbzBGnWEgmJSwixJ6sf55PyNA5vc67TL0D_BgNLw8xzDu0-pZ2WI3T962zKTX7vNVkQv/exec?text=${e}&source=es&target=en`)
             .then(resp => resp.text())
@@ -44,7 +40,6 @@
             })
             .catch(err => rrr(err,1));
     }
-
         
     if ('webkitSpeechRecognition' in window) {
         err('ready',3);
@@ -61,12 +56,12 @@
         escuchar.start();
         escuchar.onend = function() {
             escuchar.start();
-            err('again',3);
+            err('listener',3);
         };
     } else {
         err('Tu navegador no soporta la API Web Speech',1);
     }
 
-
 </script>
+
 </html>
